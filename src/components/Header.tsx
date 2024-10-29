@@ -1,6 +1,10 @@
+import { isLogged } from "@/helpers/AuthHandler";
 import Link from "next/link";
 
 export const Header = () => {
+
+    let logged = isLogged();
+
     return (
         <header className="bg-white h-[60px] border-b-[1px] border-[#ccc]">
             <div className="max-w-[1000px] mx-auto flex">
@@ -13,15 +17,34 @@ export const Header = () => {
                 </div>
                 <nav className="py-[10px]">
                     <ul className="flex items-center h-[40px] gap-[40px] font-bold">
-                        <li className="">
-                            <Link href={""} className="text-[14px]">Login</Link>
-                        </li>
-                        <li>
-                            <Link href={""} className="text-[14px]">Cadastrar</Link>
-                        </li>
-                        <li>
-                            <Link href={""} className="text-[14px] bg-[#ff8100] text-white py-[5px] px-[10px] rounded hover:bg-[#e57706]">Poste um anúncio</Link>
-                        </li>
+                        {logged &&
+                            <>
+                                <li>
+                                    <Link href={"/my-account"} className="text-[14px]">Minha Conta</Link>
+                                </li>
+                                <li>
+                                    <Link href={"/logout"} className="text-[14px]">Sair</Link>
+                                </li>
+                                <li>
+                                    <Link href={"/post-an-ad"} className="text-[14px] bg-[#ff8100] text-white py-[5px] px-[10px] rounded hover:bg-[#e57706]">Poste um anúncio</Link>
+                                </li>
+                            </>
+                        }
+                        {!logged &&
+                            <>
+                                <li>
+                                    <Link href={"/signin"} className="text-[14px]">Login</Link>
+                                </li>
+                                <li>
+                                    <Link href={"/signup"} className="text-[14px]">Cadastrar</Link>
+                                </li>
+                                <li>
+                                    <Link href={"/signin"} className="text-[14px] bg-[#ff8100] text-white py-[5px] px-[10px] rounded hover:bg-[#e57706]">Poste um anúncio</Link>
+                                </li>
+                            </>
+                        }
+
+
                     </ul>
                 </nav>
             </div>
