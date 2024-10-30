@@ -19,7 +19,7 @@ const Page = () => {
 
         const json = await api.login(email, password);
 
-        if(json.error) {
+        if (json.error) {
             setError(json.error);
         } else {
             doLogin(json.token, rememberPassword);
@@ -33,15 +33,23 @@ const Page = () => {
             <h1 className="text-[27px] font-bold">Login</h1>
 
             <div>
+                {error &&
+                    <div className="my-[10px] bg-[#FFCACA] text-black border-[2px] border-[#FF0000] p-[10px]">
+                        {error}
+                    </div>
+                }
                 <form onSubmit={handleSubmit} className="bg-white rounded p-[10px] shadow-md">
                     <label htmlFor="email" className="flex items-center p-[10px] max-w-[500px]">
                         <div className="w-[200px] text-right pr-5 font-bold text-[14px]">E-mail</div>
                         <div className="flex-[1]">
                             <input
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 disabled={disable}
                                 type="email"
                                 id="email"
                                 className="w-full text-[14px] p-[5px] border rounded outline-none focus:border-[#333] focus:text-[#333] transition-all"
+                                required
                             />
                         </div>
                     </label>
@@ -49,10 +57,13 @@ const Page = () => {
                         <div className="w-[200px] text-right pr-5 font-bold text-[14px]">Senha</div>
                         <div className="flex-[1]">
                             <input
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 disabled={disable}
                                 type="password"
                                 id="senha"
                                 className="w-full text-[14px] p-[5px] border rounded outline-none focus:border-[#333] focus:text-[#333] transition-all"
+                                required
                             />
                         </div>
                     </label>
@@ -60,6 +71,8 @@ const Page = () => {
                         <div className="w-[200px] text-right pr-5 font-bold text-[14px]">Lembrar senha</div>
                         <div className="flex-[1]">
                             <input
+                                checked={rememberPassword}
+                                onChange={() => setRememberPassword(!rememberPassword)}
                                 disabled={disable}
                                 type="checkbox"
                                 id="lembrarsenha"

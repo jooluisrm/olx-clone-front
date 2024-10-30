@@ -1,7 +1,7 @@
 const OlxAPI: any = {
     login: async (email: string, password: string) => {
 
-        return {};
+        return {error: "errosasakkssakkaka"};
     }
 };
 
